@@ -1,0 +1,19 @@
+.main {
+    width: 960px;
+    margin: 0px auto;
+}
+
+.photos {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0px auto;
+}
+
+.photo {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}

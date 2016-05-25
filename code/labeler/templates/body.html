@@ -1,0 +1,29 @@
+<div class="main">
+    <h1>Photos</h1>
+    <div class="photos">
+    {% for img in images %}
+        <div id="{{ img['id'] }}" class="photo">
+            <h3>{{ img['timestamp'].strftime('%x') }}</h2>
+            <img src="{{ img['url'] }}">
+            <input type="text" class="label" value="{{ img['category'] }}"/>
+            <button>submit</button>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+<script>
+    $('.photo button').click(function(){
+        var label = $(this).parent();
+        var category = label.find('input').val();
+        var id = label.attr('id');
+
+        $.ajax({
+            method: 'PUT',
+            url: '/photo',
+            data: {id: id, category: category},
+            success: function(data){
+                label.remove();
+            }
+        })
+    });
+</script>
