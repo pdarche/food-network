@@ -8,10 +8,17 @@ app.config.from_object('config')
 client = pymongo.MongoClient('localhost', 27017)
 db = client.phronesis_food_photos
 
+top_categories = [
+    'coffee', 'beer','burrito','pizza','salad',
+    'diet soda','veggie sausage','chips','red curry',
+    'cheese sandwich','apple','juice','flax seed oil','pasta',
+    'soup', 'pad thai', 'tea', 'tacos', 'quesadilla'
+]
 
 @app.route('/')
 def index():
-    images = db.clean_photo_data.find({'category': {'$exists': False}}, {'_id': 0}).sort('timestamp').limit(200)
+    # images = db.clean_photo_data.find({'category': {'$exists': False}}, {'_id': 0}).sort('timestamp').limit(200)
+    images = db.clean_photo_data.find({'category': {'$in': top_categories}}).sort('category')
     return render_template('main.html', images=images)
 
 
